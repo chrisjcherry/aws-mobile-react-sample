@@ -1,0 +1,23 @@
+{
+	"ProjectName": "aws-mobile-react-sample",
+	"ProjectPath": "/Users/chrischerry/Documents/Workspace/AWS-learning/aws-mobile-react-sample",
+	"SourceDir": "client/src",
+	"DistributionDir": "client/build",
+	"BuildCommand": "npm run-script build",
+	"StartCommand": "npm run-script start",
+	"InitializationTime": "2018-02-15-17-11-57",
+	"LastConfigurationTime": "",
+	"LastNPMInstallTime": "",
+	"FrontendLastBuildTime": "2018-02-20-12-44-59",
+	"LastPublishTime": "2018-02-20-12-45-11",
+	"BackendFormat": "yml",
+	"BackendLastSyncTime": "2018-02-20-13-32-11",
+	"BackendLastBuildTime": "2018-02-20-12-27-55",
+	"BackendLastPushTime": "2018-02-20-12-29-48",
+	"BackendLastPushSuccessful": true,
+	"BackendProjectID": "ae6055b8-457b-4780-b791-91eb9b7057eb",
+	"BackendProjectName": "react-sample-restaurant-menu",
+	"BackendProjectConsoleUrl": "https://console.aws.amazon.com/mobilehub/home#/ae6055b8-457b-4780-b791-91eb9b7057eb/build",
+	"BackendProjectCreationTime": "2018-02-15T15:08:37.576Z",
+	"BackendProjectLastUpdatedTime": "2018-02-20T10:59:01.302Z"
+}

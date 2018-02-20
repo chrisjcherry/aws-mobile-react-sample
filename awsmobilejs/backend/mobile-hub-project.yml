@@ -1,0 +1,105 @@
+--- !com.amazonaws.mobilehub.v0.Project 
+apps:
+  web: !com.amazonaws.mobilehub.v0.AppDO {}
+features:
+  cloudlogic: !com.amazonaws.mobilehub.v0.CloudLogic 
+    components:
+      ReactSample: !com.amazonaws.mobilehub.v0.API 
+        attributes:
+          name: ReactSample
+          requires-signin: true
+          sdk-generation-stage-name: Development
+        paths:
+          /items: !com.amazonaws.mobilehub.v0.Function 
+            codeFilename: uploads/ReactSample-20180220122744.zip
+            description: 'Handler for calls to resource path : /items/{proxy+}'
+            enableCORS: true
+            environment:
+              MENU_TABLE_NAME: reactsamplerestauran-mobilehub-1587774836-bbq_menu_item
+              ORDERS_TABLE_NAME: reactsamplerestauran-mobilehub-1587774836-bbq_orders
+              RESTAURANTS_TABLE_NAME: reactsamplerestauran-mobilehub-1587774836-bbq_restaurants
+            handler: lambda.handler
+            hashcode: Zj1XcEZ7p7qlMrz+eZJSG/YZ2a29d7OyZGyAydqGt0E=
+            memorySize: '128'
+            modified: '2018-02-20T10:28:59.430+0000'
+            name: ReactSample
+            runtime: nodejs6.10
+            timeout: '3'
+            version: OcsUcFiOr4bqk4Dpy1_px2vMTiX_LRrj
+          '/items/{proxy+}': !com.amazonaws.mobilehub.v0.Function 
+            codeFilename: uploads/ReactSample-20180220122744.zip
+            description: 'Handler for calls to resource path : /items/{proxy+}'
+            enableCORS: true
+            environment:
+              MENU_TABLE_NAME: reactsamplerestauran-mobilehub-1587774836-bbq_menu_item
+              ORDERS_TABLE_NAME: reactsamplerestauran-mobilehub-1587774836-bbq_orders
+              RESTAURANTS_TABLE_NAME: reactsamplerestauran-mobilehub-1587774836-bbq_restaurants
+            handler: lambda.handler
+            hashcode: Zj1XcEZ7p7qlMrz+eZJSG/YZ2a29d7OyZGyAydqGt0E=
+            memorySize: '128'
+            modified: '2018-02-20T10:28:59.430+0000'
+            name: ReactSample
+            runtime: nodejs6.10
+            timeout: '3'
+            version: A3mIo.mliAITBCEIWQJFRBVTDYF368MU
+  content-delivery: !com.amazonaws.mobilehub.v0.ContentDelivery 
+    attributes:
+      enabled: true
+      visibility: public-global
+    components:
+      release: !com.amazonaws.mobilehub.v0.Bucket {}
+  database: !com.amazonaws.mobilehub.v0.Database 
+    components:
+      database-nosql: !com.amazonaws.mobilehub.v0.NoSQLDatabase 
+        tables:
+          - !com.amazonaws.mobilehub.v0.NoSQLTable 
+            attributes:
+              id: S
+            hashKeyName: id
+            hashKeyType: S
+            rangeKeyName: ''
+            rangeKeyType: ''
+            tableName: ___DYNAMIC_PREFIX___-bbq_restaurants
+            tablePrivacy: public
+          - !com.amazonaws.mobilehub.v0.NoSQLTable 
+            attributes:
+              id: S
+              restaurant_id: S
+            hashKeyName: restaurant_id
+            hashKeyType: S
+            rangeKeyName: id
+            rangeKeyType: S
+            tableName: ___DYNAMIC_PREFIX___-bbq_menu_item
+            tablePrivacy: public
+          - !com.amazonaws.mobilehub.v0.NoSQLTable 
+            attributes:
+              id: S
+            hashKeyName: id
+            hashKeyType: S
+            rangeKeyName: ''
+            rangeKeyType: ''
+            tableName: ___DYNAMIC_PREFIX___-bbq_orders
+            tablePrivacy: public
+  mobile-analytics: !com.amazonaws.mobilehub.v0.Pinpoint 
+    components:
+      analytics: !com.amazonaws.mobilehub.v0.PinpointAnalytics {}
+  sign-in: !com.amazonaws.mobilehub.v0.SignIn 
+    attributes:
+      enabled: true
+      optional-sign-in: false
+    components:
+      sign-in-user-pools: !com.amazonaws.mobilehub.v0.UserPoolsIdentityProvider 
+        attributes:
+          alias-attributes:
+            - email
+            - phone_number
+          mfa-configuration: ON
+          name: userpool
+          password-policy: !com.amazonaws.mobilehub.ConvertibleMap 
+            min-length: '8'
+            require-lower-case: true
+            require-numbers: true
+            require-symbols: true
+            require-upper-case: true
+name: react-sample-restaurant-menu
+region: eu-west-1
