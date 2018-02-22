@@ -8,6 +8,7 @@ See the License for the specific language governing permissions and limitations 
 
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import createHistory from 'history/createBrowserHistory';
 import { BrowserRouter, Route, Redirect, Link, Switch } from 'react-router-dom';
 import { Button, Card, Row, Col, Navbar, NavItem, Icon } from 'react-materialize';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
@@ -18,6 +19,47 @@ import Forget from './Auth/Forget';
 import awsmobile from './aws-exports';
 import Amplify,{Auth} from 'aws-amplify';
 import './css/general.css';
+import { Analytics } from 'aws-amplify';
+
+/*
+ * Import the SDK and Project Configuration
+ */
+import AWS from 'aws-sdk';
+console.log('AWS object: ', AWS);
+console.log('AWS config object: ', AWS.config);
+console.log('My region', awsmobile.aws_cognito_region);
+
+/*
+ * Configure the SDK to use anonymous identity 
+ */
+AWS.config.update({
+  region: awsmobile.aws_cognito_region,
+  appId : awsmobile.aws_project_id,
+  credentials: new AWS.CognitoIdentityCredentials({
+    IdentityPoolId: awsmobile.aws_cognito_identity_pool_id
+  })
+});
+
+console.log('AWS object: ', AWS);
+
+/*
+var options = {
+    appId : MOBILE_ANALYTICS_APP_ID   //Required e.g. 'c5d69c75a92646b8953126437d92c007'
+};
+mobileAnalyticsClient = new AMA.Manager(options);
+*/
+
+console.log('AWS config object: ', AWS.config);
+console.log('AWS config region:', AWS.config.region);
+
+Analytics.record('App-open');
+
+const history = createHistory();
+
+history.listen((location, action) => {
+    const {pathname} = location;
+    console.log('Page changed to:', location.pathname);
+  });  
 
 Amplify.configure(awsmobile);
 
