@@ -15,6 +15,7 @@ import '../css/general.css';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import awsmobile from '../aws-exports';
 import {Auth} from 'aws-amplify';
+import { Analytics } from 'aws-amplify';
 export default class Login extends Component {
     state = {
         username: '',
@@ -54,6 +55,8 @@ export default class Login extends Component {
             this.username = this.state.username,
             this.password = this.state.password
         });
+        console.log('Login button pressed');
+        // Analytics.record('Login-button-click');
        Auth.signIn(this.state.username, this.state.password)
             .then(data => {
                 if (!this.state.enableResend) {
@@ -63,22 +66,26 @@ export default class Login extends Component {
                     this.countDownResendVerificationCode();
                 }
                 this.setState(() => ({enterMFA: true, cognitoUser: data}))
+                console.log(this.state.cognitoUser);
+                console.log('State: ', this.state);
             })
             .catch(err => console.log(err)); 
     }
 
     sendVerificationCode = async(e) => {
         e.preventDefault();
+        console.log('State: ', this.state);
         Auth.confirmSignIn(this.state.cognitoUser, this.state.code)
-            .then(
-                sessionStorage.setItem('isLoggedIn',true),
-                this.setState(() => {
-                    return {
-                        logInStatus: true
-                    }
-                })
-            )
-            .catch (err => console.log(err));   
+        .then(
+            sessionStorage.setItem('isLoggedIn',true),
+            this.setState(() => {
+                return {
+                    logInStatus: true
+                }
+            })
+        )
+        .catch (err => console.log(err));   
+        console.log('State: ', this.state);
     }
 
     render() {

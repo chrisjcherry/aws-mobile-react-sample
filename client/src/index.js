@@ -8,6 +8,7 @@ See the License for the specific language governing permissions and limitations 
 
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import createHistory from 'history/createBrowserHistory';
 import { BrowserRouter, Route, Redirect, Link, Switch } from 'react-router-dom';
 import { Button, Card, Row, Col, Navbar, NavItem, Icon } from 'react-materialize';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
@@ -18,6 +19,58 @@ import Forget from './Auth/Forget';
 import awsmobile from './aws-exports';
 import Amplify,{Auth} from 'aws-amplify';
 import './css/general.css';
+import { Analytics } from 'aws-amplify';
+/* import AMA from 'ama';*/
+
+/*
+ * Import the SDK and Project Configuration
+ */
+import AWS from 'aws-sdk';
+console.log('AWS object: ', AWS);
+console.log('AWS config object: ', AWS.config);
+console.log('My region', awsmobile.aws_cognito_region);
+
+/*
+ * Configure the SDK to use anonymous identity 
+ */
+AWS.config.update({
+  region: awsmobile.aws_cognito_region,
+  credentials: new AWS.CognitoIdentityCredentials({
+      IdentityPoolId: awsmobile.aws_cognito_identity_pool_id
+    })
+});
+
+//Make sure region is 'us-east-1'
+AWS.config.region = 'us-east-1'; //in my case this overrides eu-west-1 region of app
+AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+    IdentityPoolId: 'us-east-1:61872f49-e29e-4cf0-a8b2-7bd621c54865' //Amazon Cognito Identity Pool ID
+});
+
+var options = {
+    appId : 'd10f39f8fff6477586610e27fe10457e', //Amazon Mobile Analytics App ID
+    appTitle : 'React Example App',              //Optional e.g. 'Example App'
+/*
+    appVersionName : APP_VERSION_NAME, //Optional e.g. '1.4.1'
+    appVersionCode : APP_VERSION_CODE, //Optional e.g. '42'
+    appPackageName : APP_PACKAGE_NAME  //Optional e.g. 'com.amazon.example'
+*/
+};
+
+var mobileAnalyticsClient = new AMA.Manager(options);
+
+console.log('AWS object: ', AWS);
+console.log('AMA object: ', AMA);
+console.log('App id: ', awsmobile.aws_project_id);
+console.log('Amazon Cognito Identity Pool ID: ', awsmobile.aws_cognito_identity_pool_id);
+
+// Analytics.record('App-open');
+
+const history = createHistory();
+
+history.listen((location, action) => {
+    const {pathname} = location;
+    console.log('Page changed to:', location.pathname);
+  });  
 
 Amplify.configure(awsmobile);
 

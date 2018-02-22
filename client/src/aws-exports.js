@@ -6,6 +6,7 @@
 
 // AWS Mobile Hub Project Constants
 const awsmobile = {
+    'aws_app_analytics': 'enable',
     'aws_cloud_logic': 'enable',
     'aws_cloud_logic_custom': [{"id":"ew1blya5tf","name":"ReactSample","description":"","endpoint":"https://ew1blya5tf.execute-api.eu-west-1.amazonaws.com/Development","region":"eu-west-1","paths":["/items","/items/123"]}],
     'aws_cognito_identity_pool_id': 'eu-west-1:e59b44b2-d1a6-4adc-85c3-26d78123554c',
@@ -19,6 +20,8 @@ const awsmobile = {
     'aws_dynamodb_all_tables_region': 'eu-west-1',
     'aws_dynamodb_table_schemas': [{"tableName":"reactsamplerestauran-mobilehub-1587774836-bbq_restaurants","attributes":[{"name":"id","type":"S"}],"indexes":[],"region":"eu-west-1","hashKey":"id"},{"tableName":"reactsamplerestauran-mobilehub-1587774836-bbq_menu_item","attributes":[{"name":"restaurant_id","type":"S"},{"name":"id","type":"S"}],"indexes":[],"region":"eu-west-1","hashKey":"restaurant_id","rangeKey":"id"},{"tableName":"reactsamplerestauran-mobilehub-1587774836-bbq_orders","attributes":[{"name":"id","type":"S"}],"indexes":[],"region":"eu-west-1","hashKey":"id"}],
     'aws_mandatory_sign_in': 'enable',
+    'aws_mobile_analytics_app_id': 'd10f39f8fff6477586610e27fe10457e',
+    'aws_mobile_analytics_app_region': 'us-east-1',
     'aws_project_id': 'ae6055b8-457b-4780-b791-91eb9b7057eb',
     'aws_project_name': 'react-sample-restaurant-menu',
     'aws_project_region': 'eu-west-1',
@@ -32,3 +35,7 @@ const awsmobile = {
 }
 
 export default awsmobile;
+
+var AWS = require('aws-sdk');
+AWS.config.region = awsmobile.aws_project_region;
+AWS.config.update({customUserAgent: 'MobileHub v0.1'});
